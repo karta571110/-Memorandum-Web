@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MVC_Test.Models.tToDo>
+
+@{
+    ViewBag.Title = "待辦事項";
+}
+
+<h2>待辦事項</h2>
+
+<p>
+    @Html.ActionLink("待辦事項新增", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            編號
+        </th>
+        <th>
+            標題
+            <!--@Html.DisplayNameFor(model => model.fTitle)-->
+        </th>
+        <th>
+            圖示
+            <!--@Html.DisplayNameFor(model => model.fImage)-->
+        </th>
+        <th>
+            結案日
+            <!--@Html.DisplayNameFor(model => model.fDate)-->
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr><!--1列-->
+        <td><!--1儲存格-->
+            @item.fid
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fTitle)
+        </td>
+        <td>
+            <img src="~/images/@item.fImage" width="32"/>
+            <!--@Html.DisplayFor(modelItem => item.fImage)-->
+        </td>
+        <td>
+            @DateTime.Parse(item.fDate.ToString()).ToShortDateString()
+           <!--@Html.DisplayFor(modelItem => item.fDate)-->
+        </td>
+        <td>
+            @Html.ActionLink("修改", "Edit", new { id=item.fid }) |
+           <!-- @Html.ActionLink("Details", "Details", new { id=item.fid }) |-->
+            @Html.ActionLink("刪除", "Delete", new { id=item.fid }, new { onclick="return confirm('確定要刪除嗎?')"})
+        </td>
+    </tr>
+}
+
+</table>
